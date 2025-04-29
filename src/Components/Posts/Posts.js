@@ -1,63 +1,58 @@
-import React from 'react';
-
+import React,{useContext,useEffect,useState} from 'react';
+import { ProductContext } from '../../store/ProductContext';
 import Heart from '../../assets/Heart';
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../../store/Context';
 import './Post.css';
 
 function Posts() {
 
+  const [products, setProducts] = useState([]);
+  const {setSelectedProduct} = useContext(ProductContext)
+  const history = useHistory()
+  const getProducts = ()=>{
+    fetch('https://fakestoreapi.com/products/')
+            .then(res=>res.json())
+            .then(json=>setProducts(json))
+  }
+  useEffect(()=>{
+    getProducts()
+  },[])
+
   return (
     <div className="postParentDiv">
-      <div className="moreView">
-        <div className="heading">
-          <span>Quick Menu</span>
-          <span>View more</span>
-        </div>
-        <div className="cards">
-          <div
-            className="card"
-          >
-            <div className="favorite">
-              <Heart></Heart>
-            </div>
-            <div className="image">
-              <img src="../../../Images/R15V3.jpg" alt="" />
-            </div>
-            <div className="content">
-              <p className="rate">&#x20B9; 250000</p>
-              <span className="kilometer">Two Wheeler</span>
-              <p className="name"> YAMAHA R15V3</p>
-            </div>
-            <div className="date">
-              <span>Tue May 04 2021</span>
-            </div>
-          </div>
-        </div>
+    <div className="recommendations">
+      <div className="heading">
+        <span style={{marginLeft:150}}>Fresh recommendations</span>
+      
       </div>
-      <div className="recommendations">
-        <div className="heading">
-          <span>Fresh recommendations</span>
-        </div>
-        <div className="cards">
-          <div className="card">
+      <div className="cards-container">
+        {products.map((product) => (
+          <div className="card" key={product.id} onClick={()=>{
+            setSelectedProduct(product)
+            history.push('/view')
+          }}>
             <div className="favorite">
-              <Heart></Heart>
+              <Heart />
             </div>
             <div className="image">
-              <img src="../../../Images/R15V3.jpg" alt="" />
+              <img src={product.image} alt={product.title} />
             </div>
             <div className="content">
-              <p className="rate">&#x20B9; 250000</p>
-              <span className="kilometer">Two Wheeler</span>
-              <p className="name"> YAMAHA R15V3</p>
+              <p className="rate">&#x20B9; {product.price}</p>
+              <span className="kilometer">{product.category}</span>
+              <p className="name">{product.title}</p>
             </div>
             <div className="date">
-              <span>10/5/2021</span>
+              <span>{new Date().toDateString()}</span>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
-  );
+  </div>
+);
 }
+
 
 export default Posts;

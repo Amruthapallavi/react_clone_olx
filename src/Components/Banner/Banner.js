@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 
 import './Banner.css';
 import Arrow from '../../assets/Arrow'
+// import { UserContex } from '../../store/UserContext';
 function Banner() {
+  // const [name,setName] =useState(null)
+  // const {setUser}= useContext(UserContex)
+  // const handleInput=()=>{
+  //      if(name){
+  //       setUser({name:name})
+  //      }else{
+  //       setUser({name:'unknown'})
+  //      }
+  // }
   return (
     <div className="bannerParentDiv">
       <div className="bannerChildDiv">
@@ -20,6 +30,8 @@ function Banner() {
             <span>Commercial & Other Ve...</span>
             <span>For Rent: House & Apart...</span>
           </div>
+          {/* <input type='text' value={name} onChange={(e)=>setName(e.target.value)}></input>
+          <button onClick={handleInput}>submit</button> */}
         </div>
         <div className="banner">
           <img

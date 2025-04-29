@@ -1,26 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import './View.css';
+import { ProductContext } from '../../store/ProductContext';
 function View() {
+  const {selectedProduct} = useContext(ProductContext)
   return (
     <div className="viewParentDiv">
       <div className="imageShowDiv">
-        <img
-          src="../../../Images/R15V3.jpg"
-          alt=""
-        />
+        <img src={selectedProduct.image} alt={selectedProduct.title} />
       </div>
       <div className="rightSection">
         <div className="productDetails">
-          <p>&#x20B9; 250000 </p>
-          <span>YAMAHA R15V3</span>
-          <p>Two Wheeler</p>
-          <span>Tue May 04 2021</span>
-        </div>
-        <div className="contactDetails">
-          <p>Seller details</p>
-          <p>No name</p>
-          <p>1234567890</p>
+          <p>&#x20B9; {selectedProduct.price}</p>
+          <span>{selectedProduct.title}</span>
+          <p>{selectedProduct.category}</p>
+          <span>{new Date().toDateString()}</span>
         </div>
       </div>
     </div>
