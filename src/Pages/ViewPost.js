@@ -8,7 +8,7 @@ function ViewPost(props) {
     .then(res=>res.json())
     .then(json=>console.log(json))
    }
-
+  
    useEffect(()=>{
     getProducts()
    })
